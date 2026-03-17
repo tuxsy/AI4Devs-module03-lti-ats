@@ -8,7 +8,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "install:all": "npm install && npm install --prefix frontend && npm install --prefix backend && ln -sf ../.env backend/.env",
+    "install:all": "npm install && npm install --prefix frontend && npm install --prefix backend && touch .env && ln -sf ../.env backend/.env",
     "dev": "bash scripts/dev.sh",
     "dev:frontend": "npm run --prefix frontend start",
     "dev:backend": "npm run --prefix backend start:dev",
