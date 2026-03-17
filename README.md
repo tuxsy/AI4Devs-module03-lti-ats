@@ -16,8 +16,8 @@ Antes de empezar, asegúrate de tener instalado en tu máquina:
 ### 1. Clona el repositorio
 
 ```bash
-git clone https://github.com/lti/lti-ats.git
-cd lti-ats
+git clone https://github.com/tuxsy/AI4Devs-module03-lti-ats
+cd AI4Devs-module03-lti-ats
 ```
 
 ### 2. Instala la versión de Node.js requerida
@@ -56,7 +56,7 @@ npm run db:up
 ### 6. Aplica las migraciones
 
 ```bash
-npm run db:migrate
+npm run db:migration:deploy
 ```
 
 ### 7. Arranca el proyecto
@@ -67,10 +67,10 @@ npm run dev
 
 Esto arranca en paralelo:
 
-| Servicio | URL |
-|---|---|
-| Frontend (Angular) | http://localhost:4200 |
-| Backend (NestJS) | http://localhost:3000 |
+| Servicio           | URL                            |
+| ------------------ | ------------------------------ |
+| Frontend (Angular) | http://localhost:4200          |
+| Backend (NestJS)   | http://localhost:3000          |
 | API Docs (Swagger) | http://localhost:3000/api/docs |
 
 ---
@@ -78,11 +78,12 @@ Esto arranca en paralelo:
 ## 🗄️ Gestión de la base de datos
 
 ```bash
-npm run db:up       # Levanta PostgreSQL
-npm run db:down     # Para PostgreSQL
-npm run db:reset    # Elimina los datos y reinicia (¡borra todo!)
-npm run db:migrate  # Aplica las migraciones pendientes
-npm run db:studio   # Abre Prisma Studio en http://localhost:5555
+npm run db:up                  # Levanta PostgreSQL
+npm run db:down                # Para PostgreSQL
+npm run db:reset               # Elimina los datos y reinicia (¡borra todo!)
+npm run db:migration:deploy    # Aplica las migraciones pendientes
+npm run db:migrate             # Crea una nueva migración (desarrollo)
+npm run db:studio              # Abre Prisma Studio en http://localhost:5555
 ```
 
 ---
@@ -123,9 +124,9 @@ Para más detalles consulta [`docs/project-structure.md`](docs/project-structure
 
 ## 📚 Documentación técnica
 
-| Documento | Descripción |
-|---|---|
-| [`docs/project.md`](docs/project.md) | Descripción general del proyecto |
-| [`docs/frontend-stack.md`](docs/frontend-stack.md) | Stack y reglas del frontend |
-| [`docs/backend-stack.md`](docs/backend-stack.md) | Stack y reglas del backend |
-| [`docs/project-structure.md`](docs/project-structure.md) | Estructura del monorepo |
+| Documento                                                | Descripción                      |
+| -------------------------------------------------------- | -------------------------------- |
+| [`docs/project.md`](docs/project.md)                     | Descripción general del proyecto |
+| [`docs/frontend-stack.md`](docs/frontend-stack.md)       | Stack y reglas del frontend      |
+| [`docs/backend-stack.md`](docs/backend-stack.md)         | Stack y reglas del backend       |
+| [`docs/project-structure.md`](docs/project-structure.md) | Estructura del monorepo          |
