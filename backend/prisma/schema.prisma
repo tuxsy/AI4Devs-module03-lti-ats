@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  RECRUITER
+  HIRING_MANAGER
+  CANDIDATE
+}
+
+enum JobStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum ApplicationStatus {
+  RECEIVED
+  REVIEWING
+  SHORTLISTED
+  REJECTED
+  HIRED
+}
+
+enum InterviewStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+// ─── Models ──────────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      Role     @default(RECRUITER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobs        Job[]
+  interviews  Interview[]
+
+  @@map("users")
+}
+
+model Job {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  location    String?
+  salaryMin   Int?
+  salaryMax   Int?
+  status      JobStatus @default(DRAFT)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  recruiterId String
+  recruiter   User   @relation(fields: [recruiterId], references: [id])
+
+  applications Application[]
+
+  @@map("jobs")
+}
+
+model Candidate {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  phone     String?
+  cvUrl     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  applications Application[]
+
+  @@map("candidates")
+}
+
+model Application {
+  id          String            @id @default(uuid())
+  status      ApplicationStatus @default(RECEIVED)
+  coverLetter String?
+  score       Int?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  jobId       String
+  job         Job       @relation(fields: [jobId], references: [id])
+
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+
+  interviews Interview[]
+
+  @@unique([jobId, candidateId])
+  @@map("applications")
+}
+
+model Interview {
+  id          String          @id @default(uuid())
+  scheduledAt DateTime
+  status      InterviewStatus @default(SCHEDULED)
+  notes       String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id])
+
+  interviewerId String
+  interviewer   User   @relation(fields: [interviewerId], references: [id])
+
+  @@map("interviews")
+}
