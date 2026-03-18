@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Frontend (Angular)",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "source ~/.nvm/nvm.sh && npm run --prefix frontend start"],
+      "port": 4200
+    },
+    {
+      "name": "Backend (NestJS)",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "source ~/.nvm/nvm.sh && npm run --prefix backend start:dev"],
+      "port": 3000
+    }
+  ]
+}
